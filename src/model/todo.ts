@@ -1,8 +1,15 @@
-export class Todo {
-  private id: string;
-  private content: string;
-  private createdAt: string;
-  private done: boolean;
+
+interface ITodo {
+  id: string;
+  content: string;
+  createdAt: string;
+  done: boolean;
+}
+export class Todo implements ITodo {
+  public id: string;
+  public content: string;
+  public createdAt: string;
+  public done: boolean;
 
   constructor(id: string, content: string, createdAt: string, done: boolean) {
     this.id = id;

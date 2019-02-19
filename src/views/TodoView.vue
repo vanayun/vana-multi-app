@@ -22,9 +22,10 @@ import { Todo } from '@/model/todo';
     TodoList,
   },
 })
+
 export default class TodoView extends Vue {
   /** data */
-  public todoItems: Todo [];
+  private todoItems: Todo [];
 
   constructor() {
     super();
@@ -32,26 +33,26 @@ export default class TodoView extends Vue {
   }
 
   /** methods */
-  public addTodoItem(content: string) {
-    const todo: Todo = this._makeTodoInstance(content);
+  private addTodoItem(content: string) {
+    const todo: Todo = this.makeTodoInstance(content);
     this.todoItems.push(todo);
-    this._saveLocalStorage();
+    this.saveLocalStorage();
   }
 
-  public removeTodoItem(id: string) {
+  private removeTodoItem(id: string) {
     this.todoItems = this.todoItems.filter((val) => val['id'] !== id);
-    this._saveLocalStorage();
+    this.saveLocalStorage();
   }
 
-  public saveTodoItem() {
-    this._saveLocalStorage();
+  private saveTodoItem() {
+    this.saveLocalStorage();
   }
 
-  private _saveLocalStorage() {
+  private saveLocalStorage() {
     localStorage.setItem('todoItems', JSON.stringify(this.todoItems));
   }
 
-  private _makeTodoInstance(content: string): Todo {
+  private makeTodoInstance(content: string): Todo {
     const todo = new Todo(
       shortid.generate(),
       content,

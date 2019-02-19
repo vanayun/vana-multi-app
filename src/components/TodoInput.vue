@@ -3,11 +3,11 @@
     <input type="text"
       class="todoInput"
       v-model="content"
-      v-on:keyup.enter="addTodo"
+      @keyup.enter="addTodo"
       maxlength="50"
       required />
     <button
-      v-on:click="addTodo">
+      @click="addTodo">
       등록하기</button>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default class TodoInput extends Vue {
 
   /** emit */
   @Emit('addTodoItem')
-  private _submit(): void {
+  private submit(): void {
     this.$emit('add-item', this.content);
   }
 
@@ -36,17 +36,14 @@ export default class TodoInput extends Vue {
       alert('글자를 입력 해 주세요!');
       this.content = '';
       return;
-    } else if(this.content.trim().length > 50) {
-      alert('50자 까지 입력할 수 있습니다.');
-      return;
     } else {
       console.log(this.content);
-      this._submit();
-      this._clearInput();
+      this.submit();
+      this.clearInput();
     }
   }
 
-  private _clearInput(): void {
+  private clearInput(): void {
     this.content = '';
   }
 }

@@ -18,9 +18,9 @@ export default new Router({
       component: () => import('./views/TodoView.vue'),
     },
     {
-      path: '/cropper',
-      name: 'cropper',
-      component: () => import('./views/CropperView.vue'),
+      path: '/images',
+      name: 'images',
+      component: () => import('./views/ImageView.vue'),
     },
     {
       path: '/about',

@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/todo">Todo</router-link> |
-      <router-link to="/cropper">Cropper</router-link>
+      <router-link to="/images">Images</router-link>
     </div>
     <router-view/>
   </div>
