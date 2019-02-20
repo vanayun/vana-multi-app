@@ -32,7 +32,6 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import VueCropper from 'vue-cropperjs';
-import cropperVue from 'vue-croppa/src/cropper.vue';
 import no_img from '@/assets/no_img.png';
 
 @Component({
