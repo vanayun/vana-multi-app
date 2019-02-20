@@ -3,7 +3,7 @@
     <input type="text"
       class="todo_input"
       v-model="content"
-      @keyup.enter="addTodo"
+      @keyup.enter.stop="addTodo"
       required />
     <button
       @click="addTodo">
@@ -30,13 +30,12 @@ export default class TodoInput extends Vue {
   }
 
   /** methods */
-  public addTodo($event: Event): void {
+  public addTodo(): void {
     if (!/.+/.test(this.content.trim())) {
       alert('글자를 입력 해 주세요!');
       this.content = '';
       return;
     } else {
-      console.log(this.content);
       this.submit();
       this.clearInput();
     }

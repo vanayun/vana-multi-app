@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "moment": "^2.24.0",
+    "rxjs": "^6.4.0",
     "shortid": "^2.2.14",
     "vue": "^2.5.22",
     "vue-class-component": "^6.0.0",
     "vue-cropperjs": "^3.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
+    "vue-rx": "^6.1.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

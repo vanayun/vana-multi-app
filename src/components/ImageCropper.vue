@@ -1,7 +1,8 @@
 <template>
   <div>
-    <input clsss="image_file_upload" type="file" name="image" accept="image/*"
-      @change="setImage($event.target.files)" />
+    <input clsss="image_file_upload" type="file" name="image_file_input" accept="image/*"
+      ref="imageFileInput"
+      @change="setImage($event.target.files)"/>
     <div class="cropper_area">
       <vue-cropper
           ref='cropper'
@@ -22,9 +23,9 @@
         <img :src="cropImg"/>
       </div>
       <button @click="doCrop" v-if="imageSrc" style="margin-right: 40px;">Crop</button>
-      <button @click="rotate" v-if="imageSrc">Rotate</button>
-      <button @click="zoomIn" v-if="imageSrc"> + </button>
-      <button @click="zoomOut" v-if="imageSrc"> - </button>
+      <button @click.stop="rotate" v-if="imageSrc">Rotate</button>
+      <button @click.stop="zoomIn" v-if="imageSrc"> + </button>
+      <button @click.stop="zoomOut" v-if="imageSrc"> - </button>
     </div>
   </div>
 </template>
@@ -52,7 +53,8 @@ export default class ImageCropper extends Vue {
   }
 
   public $refs!: {
-    cropper: VueCropper
+    cropper: VueCropper,
+    imageFileInput : Element,
   }
 
   /** emit */
