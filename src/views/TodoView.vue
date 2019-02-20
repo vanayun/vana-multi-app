@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todo_list_group">
     <todo-input
       @add-item="addTodoItem" />
     <todo-list
@@ -25,7 +25,7 @@ import { Todo } from '@/model/todo';
 
 export default class TodoView extends Vue {
   /** data */
-  private todoItems: Todo [];
+  public todoItems: Todo [];
 
   constructor() {
     super();
@@ -33,26 +33,26 @@ export default class TodoView extends Vue {
   }
 
   /** methods */
-  private addTodoItem(content: string) {
+  public addTodoItem(content: string) {
     const todo: Todo = this.makeTodoInstance(content);
     this.todoItems.push(todo);
     this.saveLocalStorage();
   }
 
-  private removeTodoItem(id: string) {
+  public removeTodoItem(id: string) {
     this.todoItems = this.todoItems.filter((val) => val['id'] !== id);
     this.saveLocalStorage();
   }
 
-  private saveTodoItem() {
+  public saveTodoItem() {
     this.saveLocalStorage();
   }
 
-  private saveLocalStorage() {
+  public saveLocalStorage() {
     localStorage.setItem('todoItems', JSON.stringify(this.todoItems));
   }
 
-  private makeTodoInstance(content: string): Todo {
+  public makeTodoInstance(content: string): Todo {
     const todo = new Todo(
       shortid.generate(),
       content,
@@ -65,7 +65,7 @@ export default class TodoView extends Vue {
   /** created
    *  localStorage에 있는 todoItems 미리 호출
    */
-  private created() {
+  public created() {
     if (localStorage.getItem('todoItems')) {
       this.todoItems = JSON.parse(localStorage.getItem('todoItems') || '') || [];
     }
@@ -73,5 +73,6 @@ export default class TodoView extends Vue {
 }
 </script>
 <style scoped>
+  .todo_list_group{width:600px;margin:0 auto}
 </style>
 

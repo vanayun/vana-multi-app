@@ -1,10 +1,8 @@
 <template>
   <div>
-    <input type="file" name="image" accept="image/*"
-           style="font-size: 16px; padding: 10px 0;"
-           @change="setImage($event.target.files)" />
-    <br/>
-    <div style="width: 400px; height:300px; border: 1px solid gray; display: inline-block;">
+    <input clsss="image_file_upload" type="file" name="image" accept="image/*"
+      @change="setImage($event.target.files)" />
+    <div class="cropper_area">
       <vue-cropper
           ref='cropper'
           :guides="true"
@@ -16,21 +14,25 @@
           :background="true"
           :rotatable="true"
           :src="imageSrc"
-          alt="Source Image"
-          :img-style="{ 'width': '400px', 'height': '300px' }">
+          :img-style="{ 'width': '360px', 'height': '300px' }">
       </vue-cropper>
     </div>
-    <img :src="cropImg" style="width: 200px; height: 150px; border: 1px solid gray" />
-    <button @click="doCrop" v-if="imageSrc != ''" style="margin-right: 40px;">Crop</button>
-    <button @click="rotate" v-if="imageSrc != ''">Rotate</button>
-    <button @click="zoomIn" v-if="imageSrc != ''"> + </button>
-    <button @click="zoomOut" v-if="imageSrc != ''"> - </button>
+    <div class="cropper_box">
+      <div class="inr">
+        <img :src="cropImg"/>
+      </div>
+      <button @click="doCrop" v-if="imageSrc" style="margin-right: 40px;">Crop</button>
+      <button @click="rotate" v-if="imageSrc">Rotate</button>
+      <button @click="zoomIn" v-if="imageSrc"> + </button>
+      <button @click="zoomOut" v-if="imageSrc"> - </button>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import VueCropper from 'vue-cropperjs';
 import cropperVue from 'vue-croppa/src/cropper.vue';
+import no_img from '@/assets/no_img.png';
 
 @Component({
   components: {
@@ -46,7 +48,7 @@ export default class ImageCropper extends Vue {
   constructor() {
     super();
     this.imageSrc = '';
-    this.cropImg = '';
+    this.cropImg = no_img;
   }
 
   public $refs!: {
@@ -55,12 +57,11 @@ export default class ImageCropper extends Vue {
 
   /** emit */
   @Emit('doCropped')
-  private doCropped(cropImg: string): void {
+  public doCropped(cropImg: string): void {
     this.$emit('do-crop', cropImg);
   }
 
   /** methods */
-
   public setImage(files: [any]): void {
     
     // 1. 파일을 요소를 가져옴.
@@ -72,6 +73,7 @@ export default class ImageCropper extends Vue {
       return;
     }
 
+    // 3. 이미지 파일 dataURL 가져오기.
     if (typeof FileReader === 'function') {
       const reader = new FileReader();
       reader.onload = (event: any) => {
@@ -79,16 +81,16 @@ export default class ImageCropper extends Vue {
         // 화면에 이미지 replace
         this.$refs.cropper.replace(this.imageSrc);
       }
-
       reader.readAsDataURL(file);
     } else {
-      alert('Sorry, FileReader API not supported');
+      alert('이미지 파일을 읽어올 수 없습니다.');
     }
   }
 
   public doCrop(): void {
     this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
-    // 부모창에 반영 상태를 알림.
+
+    // 부모창에 crop 상태를 알림.
     this.doCropped(this.cropImg);
   }
 
@@ -97,12 +99,12 @@ export default class ImageCropper extends Vue {
   }
 
   public zoomIn(e: Event): void {
-    let ratio = .1;
+    let ratio = .2;
     this.zoom(ratio, e);
   }
 
   public zoomOut(e: Event): void {
-    let ratio = -.1;
+    let ratio = -.2;
     this.zoom(ratio, e);
   }
 
@@ -114,8 +116,15 @@ export default class ImageCropper extends Vue {
     } else {
       ratio = 1 + ratio;
     }
-
-    return this.$refs.cropper.zoomTo((canvasData.width * ratio) / canvasData.naturalWidth, null, event);
+    this.$refs.cropper.zoomTo((canvasData.width * ratio) / canvasData.naturalWidth, null, event);
   }
 }
 </script>
+<style scoped>
+  .image_file_upload{font-size: 14px; padding: 10px 0}
+  .cropper_area{width:360px; height:300px; margin-right:20px; border: 1px solid gray; display: inline-block;vertical-align: top}
+  .cropper_box{display: inline-block}
+  .cropper_box .inr{width: 200px; height: 150px;margin-bottom: 10px; border: 1px solid gray; }
+  .cropper_box .inr img{display: block; width: 100%; height: 100%;}
+</style>
+

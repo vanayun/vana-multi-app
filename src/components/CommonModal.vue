@@ -83,9 +83,6 @@ export default class CommonModal extends Vue {
 .modal-body {
   margin: 20px 0;
   position: relative;
-  flex: 1 1 auto;
-  padding: 1rem;
-  font-size: 16px;
 }
 
 .modal-footer {

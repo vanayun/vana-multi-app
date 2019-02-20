@@ -1,10 +1,9 @@
 <template>
   <div>
     <input type="text"
-      class="todoInput"
+      class="todo_input"
       v-model="content"
       @keyup.enter="addTodo"
-      maxlength="50"
       required />
     <button
       @click="addTodo">
@@ -17,7 +16,7 @@ import { Component, Emit, Vue } from 'vue-property-decorator';
 @Component({})
 export default class TodoInput extends Vue {
   /** data */
-  private content!: string;
+  public content!: string;
 
   constructor() {
     super();
@@ -26,12 +25,12 @@ export default class TodoInput extends Vue {
 
   /** emit */
   @Emit('addTodoItem')
-  private submit(): void {
+  public submit(): void {
     this.$emit('add-item', this.content);
   }
 
   /** methods */
-  private addTodo($event: Event): void {
+  public addTodo($event: Event): void {
     if (!/.+/.test(this.content.trim())) {
       alert('글자를 입력 해 주세요!');
       this.content = '';
@@ -43,7 +42,7 @@ export default class TodoInput extends Vue {
     }
   }
 
-  private clearInput(): void {
+  public clearInput(): void {
     this.content = '';
   }
 }
@@ -53,11 +52,7 @@ export default class TodoInput extends Vue {
     outline: none;
   }
 
-  .todoInput {
-    width: 350px;
-    height: 34px;
-    font-size: 14px;
-  }
+  .todo_input {width: 489px;height: 40px;padding:0 10px; font-size: 14px;}
 
   button{
     margin-top: 1px;
@@ -69,31 +64,6 @@ export default class TodoInput extends Vue {
     font-size: 14px;
     padding:0 2em;
     cursor:pointer;
-    transition:800ms ease all;
     outline:none;
-  }
-  button:hover{
-    background:#fff;
-    color:#9370db;
-  }
-  button:before,button:after{
-    content:'';
-    position:absolute;
-    top:0;
-    right:0;
-    height:2px;
-    width:0;
-    background: #9370db;
-    transition:400ms ease all;
-  }
-  button:after{
-    right:inherit;
-    top:inherit;
-    left:0;
-    bottom:0;
-  }
-  button:hover:before,button:hover:after{
-    width:100%;
-    transition:800ms ease all;
   }
 </style>
