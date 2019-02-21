@@ -115,7 +115,9 @@ export default class ImageCropper extends Vue {
     } else {
       ratio = 1 + ratio;
     }
-    this.$refs.cropper.zoomTo((canvasData.width * ratio) / canvasData.naturalWidth, null, event);
+
+    let computedRatio = (canvasData.width * ratio) / canvasData.naturalWidth;
+    this.$refs.cropper.zoomTo(computedRatio, event);
   }
 }
 </script>
