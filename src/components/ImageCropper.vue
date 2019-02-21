@@ -32,12 +32,11 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 import VueCropper from 'vue-cropperjs';
-import no_img from '@/assets/no_img.png';
 
 @Component({
   components: {
     VueCropper,
-  }
+  },
 })
 export default class ImageCropper extends Vue {
 
@@ -48,13 +47,12 @@ export default class ImageCropper extends Vue {
   constructor() {
     super();
     this.imageSrc = '';
-    this.cropImg = no_img;
+    this.cropImg = '';
   }
 
   public $refs!: {
     cropper: VueCropper,
-    imageFileInput : Element,
-  }
+  };
 
   /** emit */
   @Emit('doCropped')
@@ -64,7 +62,7 @@ export default class ImageCropper extends Vue {
 
   /** methods */
   public setImage(files: [any]): void {
-    
+
     // 1. 파일을 요소를 가져옴.
     const file = files[0];
 
@@ -78,10 +76,10 @@ export default class ImageCropper extends Vue {
     if (typeof FileReader === 'function') {
       const reader = new FileReader();
       reader.onload = (event: any) => {
-        this.imageSrc = event.target.result
+        this.imageSrc = event.target.result;
         // 화면에 이미지 replace
         this.$refs.cropper.replace(this.imageSrc);
-      }
+      };
       reader.readAsDataURL(file);
     } else {
       alert('이미지 파일을 읽어올 수 없습니다.');
@@ -100,12 +98,12 @@ export default class ImageCropper extends Vue {
   }
 
   public zoomIn(e: Event): void {
-    let ratio = .2;
+    const ratio = .2;
     this.zoom(ratio, e);
   }
 
   public zoomOut(e: Event): void {
-    let ratio = -.2;
+    const ratio = -.2;
     this.zoom(ratio, e);
   }
 

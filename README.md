@@ -23,22 +23,29 @@ typescript : 3.0.0
 ## 프로젝트 폴더 구조
 
 ```
-|- src |- main.ts
-       |- router.ts
-       |- assets
-
-       |- components  |- CommonModal.vue
-                      |- ImageCropper.vue
-                      |- TodoInput.vue
-                      |- TodoList.vue
-       
-       |- model |- todo.ts
-       
-       |- views |- ImageView.vue
-                |- TodoView.vue
-       
-       |- App.vue (Main App)
-...
+src/
+|
+|- main.ts
+|- router.ts
+|- assets
+|- components/
+|   |- CommonModal.vue
+|   |- ImageCropper.vue
+|   |- TodoInput.vue
+|   |- TodoList.vue
+|   ...    
+|
+|- model/
+|   |- todo.ts
+|   ...
+|
+|- views/
+|   |- ImageView.vue
+|   |- TodoView.vue
+|   ...       
+|
+|- App.vue (Main App)
+|
 ```
 
 ## pages
@@ -49,11 +56,14 @@ typescript : 3.0.0
 ### 레이아웃 구조
 ```
 
-- Todo  - TodoView.vue  |- TodoInput.vue
-                        |- TodoList.vue
+- Todo  - TodoView.vue
+            |- TodoInput.vue
+            |- TodoList.vue
 
-- Image - ImageView.vue |- CommonModal.vue
-                        |- ImageCropper.vue |- VueCropper
+- Image - ImageView.vue 
+            |- CommonModal.vue
+            |- ImageCropper.vue 
+                |- VueCropper
 ```
 
 ## 라우팅

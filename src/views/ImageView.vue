@@ -62,7 +62,7 @@ export default class ImageView extends Vue {
   public openAddImageModal(): void {
     this.showModal = true;
   }
- 
+
   // cropper에서 crop할 때 이벤트를 받아 이미지를 dataURL을 temp에 담아놓는다.
   public doCropped(cropImage: string): void {
     this.tempCropImage = cropImage;
@@ -76,9 +76,9 @@ export default class ImageView extends Vue {
 
   public handleImageUpload(): void {
     this.showModal = false;
-    
+
     // temp에 있는 이미지만 localstorage에 저장하기. crop을 하지 않은 이미지는 저장되지 않는다.
-    if(this.tempCropImage) {
+    if (this.tempCropImage) {
       localStorage.setItem('cropImage', this.tempCropImage);
       this.cropImage = this.tempCropImage;
     }
@@ -86,7 +86,7 @@ export default class ImageView extends Vue {
 
   /** created */
   public created() {
-    //localstorage에 저장되어있는 이미지 가져오기
+    // localstorage에 저장되어있는 이미지 가져오기
     this.cropImage = localStorage.getItem('cropImage') || '';
   }
 }

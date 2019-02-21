@@ -40,7 +40,8 @@ export default class TodoView extends Vue {
   }
 
   public removeTodoItem(id: string) {
-    this.todoItems = this.todoItems.filter((val) => val['id'] !== id);
+    const idKey = 'id';
+    this.todoItems = this.todoItems.filter((val) => val[idKey] !== id);
     this.saveLocalStorage();
   }
 
